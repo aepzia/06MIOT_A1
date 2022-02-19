@@ -1,0 +1,88 @@
+TERAPEUTA(dni, nombre, apellidos, rol, cif_cuenta) 
+PK:{dni} 
+FK:{TERAPEUTA.cif_cuenta es FK a CUENTA.cif} 
+Acepta nulos? No 
+Borrado: PROPAGAR 
+Modificación: PROPAGAR 
+Dominio de rol: [Admin,Regular] 
+
+CUENTA(cif, nombre, licencia) 
+PK:{cif} 
+Dominio de licencia: [free,basic,premium] 
+
+USUARIO(dni, nombre, apellido, edad, cif_cuenta) 
+PK:{dni} 
+FK{USUARIO.cif_cuenta es FK a CUENTA.cif}  
+Acepta nulos: No 
+Borrado: PROPAGAR 
+Modificación: PROPAGAR 
+
+ENTORNO(id, cif_cuenta) 
+PK:{id} 
+FK:{ENTORNO.cif_cuenta es FK a CUENTA.cif} 
+Acepta nulos: NO 
+Borrado: PROPAGAR 
+Modificación: PROPAGAR 
+
+DISPOSITIVO(id, marca, tipo, id_entorno) 
+PK:{id} 
+FK:{DISPOSITIVO.id_entorno es FK a ENTORNO.id} 
+Acepta nulos: No 
+Borrado: PROPAGAR 
+Modificación: PROPAGAR 
+Dominio de tipo: [sensor,actuador] 
+
+ACTIVIDAD(id, descripcion, id_entorno) 
+PK:{id} 
+FK:{ACTIVIDAD.id_entorno es FK a ENTORNO.id} 
+Acepta nulos: NO 
+Borrado: PROPAGAR 
+Modificación: PROPAGAR 
+
+CAPACIDAD(id, descripcion, tipo) 
+PK:{id} 
+Dominio de tipo: [Sensorial,Motriz,Intelectual] 
+
+TIENE_ASIGNADO(dni_usuario, dni_terapeuta) 
+PK: {dni_usuario,dni_terapeuta} 
+FK: {TIENE_ASIGNADO.dni_usuario es FK a USUARIO.dni} 
+Acepta nulos: NO 
+Borrado: PROPAGAR 
+Modificación: PROPAGAR 
+FK: {TIENE_ASIGNADO.dni_terapeuta es FK a TERAPEUTA.dni} 
+Acepta nulos: NO 
+Borrado: PROPAGAR 
+Modificación: PROPAGAR 
+
+LLEVA_A_CABO(dni_usuario, id_actividad) 
+PK: {dni_usuario,id_actividad} 
+FK: {LLEVA_A_CABO.dni_usuario es FK a USUARIO.dni} 
+Acepta nulos: NO 
+Borrado: PROPAGAR 
+Modificación: PROPAGAR 
+FK: {LLEVA_A_CABO.id_actividad es FK a ACTIVIDAD.id} 
+Acepta nulos: NO 
+Borrado: PROPAGAR 
+Modificación: PROPAGAR 
+
+USA(id_actividad, id_dispositivo) 
+PK: {id_actividad,id_dispositivo} 
+FK: {USA.id_actividad es FK a ACTIVIDAD.id} 
+Acepta nulos: NO 
+Borrado: PROPAGAR 
+Modificación: PROPAGAR 
+FK: {USA.id_dispositivo es FK a DISPOSITIVO.id} 
+Acepta nulos: NO 
+Borrado: PROPAGAR 
+Modificación: PROPAGAR 
+
+DESARROLLA(id_actividad, id_capacidad) 
+PK: {id_actividad,id_capacidad} 
+FK: {DESARROLLA.id_actividad es FK a ACTIVIDAD.id} 
+Acepta nulos: NO 
+Borrado: PROPAGAR 
+Modificación: PROPAGAR 
+FK: {DESARROLLA.id_capacidad es FK a CAPACIDAD.id} 
+Acepta nulos: NO 
+Borrado: PROPAGAR 
+Modificación: PROPAGAR 
